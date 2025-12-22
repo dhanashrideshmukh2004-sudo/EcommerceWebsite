@@ -95,7 +95,7 @@ export default function Navbar() {
               <NavLink to="/category/kids" onClick={() => setOpenMenu(false)}>Kids</NavLink>
               <NavLink to="/category/electronics" onClick={() => setOpenMenu(false)}>Electronics</NavLink>
               <NavLink to="/category/Home & Kitchen" onClick={() => setOpenMenu(false)}>Home & Kitchen</NavLink>
-              <NavLink to="/category/beauty" onClick={() => setOpenMenu(false)}>Beauty</NavLink>
+              <NavLink to="/category/Beauty" onClick={() => setOpenMenu(false)}>Beauty</NavLink>
             </nav>
           </div>
         </div>
