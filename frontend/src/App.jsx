@@ -1,29 +1,33 @@
-import React from 'react'
-import './App.css'
-import {BrowserRouter,Routes,Route} from 'react-router-dom'
-import Home from './pages/Home'
-import Navbar from './components/Navbar'
-import Product from './pages/Product'
-import Login from './pages/Login'
-import Register from './pages/Register'
-import toast, { Toaster } from 'react-hot-toast';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Landing from "./pages/Landing";
+import Product from "./pages/Product";
+import Cart from "./pages/Cart";
+import Orders from "./pages/Orders";
+import Profile from "./pages/Profile";
+import Wishlist from "./pages/Wishlist";
+import { CartProvider } from "./context/CartContext";
+import { OrderProvider } from "./context/OrderContext";
+import { SearchProvider } from "./context/SearchContext";
+
 export default function App() {
   return (
- <>
- <BrowserRouter>
- <Toaster />
- <Routes>
-  <Route path='/' element={<Home/>}/>
-  <Route path='/products' element={<Product/>}/>
-  <Route path='/login' element={<Login/>}></Route>
-  <Route path='/register' element={<Register/>}></Route>
-
-
- </Routes>
- </BrowserRouter>
- 
- 
- 
- </>
-  )
+    <BrowserRouter>
+      <SearchProvider>
+        <OrderProvider>   {/* 🔥 MOST IMPORTANT */}
+          <CartProvider>
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<Landing />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/category/:type" element={<Product />} />
+              <Route path="/orders" element={<Orders />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/wishlist" element={<Wishlist />} />
+            </Routes>
+          </CartProvider>
+        </OrderProvider>
+      </SearchProvider>
+    </BrowserRouter>
+  );
 }

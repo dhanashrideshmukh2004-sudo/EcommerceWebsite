@@ -124,10 +124,10 @@ const [show,setShow]=useState(false)
           {products.map((item) => {
             return (
               <Card
-                key={item.id} // Ensure to add a unique key for each card
-                item={item}
+                key={item._id || item.id} // Ensure to add a unique key for each card
+                product={item}
                 HandleEdit={() => HandleEdit(setItemId(item))}
-                handleDelete={()=>handleDelete(item._id)}
+                handleDelete={() => handleDelete(item._id)}
               />
             );
           })}

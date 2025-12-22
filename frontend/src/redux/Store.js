@@ -1,30 +1,19 @@
 import { configureStore } from "@reduxjs/toolkit";
+import wishlistReducer from "./wishlistSlice";
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
-import { rootReducer } from "./reducer";
 
-import {
-    FLUSH,
-    REHYDRATE,
-    PAUSE,
-    PERSIST,
-    PURGE,
-    REGISTER,
-  } from "redux-persist";
-const persistConfiq={
-    key:"root",
-    storage,
-    whitelist:["auth"]
-}
-const  persistedReducer=persistReducer(persistConfiq,rootReducer)
+const persistConfig = {
+  key: "wishlist",
+  storage,
+};
+
+const persistedWishlist = persistReducer(persistConfig, wishlistReducer);
+
 export const store = configureStore({
-    reducer: persistedReducer,
-    middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware({
-        serializableCheck: {
-          ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-        },
-      }),
-  });
+  reducer: {
+    wishlist: persistedWishlist,
+  },
+});
 
-export const persistor=persistStore(store)
+export const persistor = persistStore(store);
