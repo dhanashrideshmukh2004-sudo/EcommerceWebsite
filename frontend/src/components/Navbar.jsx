@@ -56,8 +56,8 @@ export default function Navbar() {
             <NavLink to="/category/women">Women</NavLink>
             <NavLink to="/category/kids">Kids</NavLink>
             <NavLink to="/category/electronics">Electronics</NavLink>
-            <NavLink to="/category/home">Home & Kitchen</NavLink>
-            <NavLink to="/category/beauty">Beauty</NavLink>
+            <NavLink to="/category/Home & Kitchen">Home & Kitchen</NavLink>
+            <NavLink to="/category/Beauty">Beauty</NavLink>
           </div>
 
           {/* Cart + User */}
@@ -94,7 +94,7 @@ export default function Navbar() {
               <NavLink to="/category/women" onClick={() => setOpenMenu(false)}>Women</NavLink>
               <NavLink to="/category/kids" onClick={() => setOpenMenu(false)}>Kids</NavLink>
               <NavLink to="/category/electronics" onClick={() => setOpenMenu(false)}>Electronics</NavLink>
-              <NavLink to="/category/home" onClick={() => setOpenMenu(false)}>Home & Kitchen</NavLink>
+              <NavLink to="/category/Home & Kitchen" onClick={() => setOpenMenu(false)}>Home & Kitchen</NavLink>
               <NavLink to="/category/beauty" onClick={() => setOpenMenu(false)}>Beauty</NavLink>
             </nav>
           </div>
