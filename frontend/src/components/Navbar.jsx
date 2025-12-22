@@ -1,75 +1,107 @@
 import { NavLink } from "react-router-dom";
-import { FaShoppingCart, FaUserCircle } from "react-icons/fa";
+import {
+  FaShoppingCart,
+  FaUserCircle,
+  FaBars,
+  FaTimes,
+} from "react-icons/fa";
 import { useCart } from "../context/CartContext";
 import { useState } from "react";
 import UserSidebar from "./UserSidebar";
-import { useSearch } from "../context/SearchContext"; // Search context for global search state
+import { useSearch } from "../context/SearchContext";
 
 export default function Navbar() {
-  // Get cart items from Cart Context
   const { cart } = useCart();
-
-  // Get search value and setter from Search Context
   const { search, setSearch } = useSearch();
 
-  // State to open / close user sidebar
   const [openUser, setOpenUser] = useState(false);
+  const [openMenu, setOpenMenu] = useState(false);
 
-  // Dummy logged-in user data
   const user = { name: "Dhanashri" };
 
   return (
     <>
-      {/* Sticky navbar container */}
+      {/* ================= NAVBAR ================= */}
       <div className="bg-white shadow sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center gap-6">
+        <div className="max-w-7xl mx-auto px-4 py-3 flex items-center gap-4">
 
-          {/* Logo / Brand name */}
-          <NavLink to="/" className="text-2xl font-bold text-blue-600">
+          {/* ☰ Mobile menu button */}
+          <button
+            className="md:hidden"
+            onClick={() => setOpenMenu(true)}
+          >
+            <FaBars size={22} />
+          </button>
+
+          {/* Logo */}
+          <NavLink
+            to="/"
+            className="text-xl md:text-2xl font-bold text-blue-600"
+          >
             StockNest
           </NavLink>
 
-          {/* Search input - updates global search state */}
+          {/* Search */}
           <input
             type="text"
             placeholder="Search products..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="flex-1 border rounded-md px-4 py-2"
+            className="flex-1 border rounded-md px-3 py-2 text-sm"
           />
 
-          {/* Navigation links and icons */}
-          <div className="flex gap-6 font-medium items-center">
-
-            {/* Category navigation links */}
+          {/* ===== DESKTOP CATEGORIES ===== */}
+          <div className="hidden md:flex gap-6 font-medium items-center">
             <NavLink to="/category/men">Men</NavLink>
             <NavLink to="/category/women">Women</NavLink>
             <NavLink to="/category/kids">Kids</NavLink>
             <NavLink to="/category/electronics">Electronics</NavLink>
-            <NavLink to="/category/Home & Kitchen">Home & Kitchen</NavLink>
-            <NavLink to="/category/Beauty">Beauty</NavLink>
+            <NavLink to="/category/home">Home & Kitchen</NavLink>
+            <NavLink to="/category/beauty">Beauty</NavLink>
+          </div>
 
-            {/* Cart icon with item count */}
+          {/* Cart + User */}
+          <div className="flex gap-4 items-center">
             <NavLink to="/cart" className="relative">
               <FaShoppingCart size={20} />
-
-              {/* Show cart count only if cart is not empty */}
               {cart.length > 0 && (
-                <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs px-1 rounded-full">
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-1 rounded-full">
                   {cart.length}
                 </span>
               )}
             </NavLink>
 
-            {/* User profile icon */}
             <button onClick={() => setOpenUser(true)}>
-              <FaUserCircle size={24} />
+              <FaUserCircle size={22} />
             </button>
           </div>
         </div>
       </div>
 
-      {/* User sidebar - opens when user icon is clicked */}
+      {/* ================= MOBILE CATEGORY DRAWER ================= */}
+      {openMenu && (
+        <div className="fixed inset-0 bg-black/40 z-50">
+          <div className="bg-white w-64 h-full p-5">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-lg font-bold">Categories</h2>
+              <button onClick={() => setOpenMenu(false)}>
+                <FaTimes />
+              </button>
+            </div>
+
+            <nav className="flex flex-col gap-4">
+              <NavLink to="/category/men" onClick={() => setOpenMenu(false)}>Men</NavLink>
+              <NavLink to="/category/women" onClick={() => setOpenMenu(false)}>Women</NavLink>
+              <NavLink to="/category/kids" onClick={() => setOpenMenu(false)}>Kids</NavLink>
+              <NavLink to="/category/electronics" onClick={() => setOpenMenu(false)}>Electronics</NavLink>
+              <NavLink to="/category/home" onClick={() => setOpenMenu(false)}>Home & Kitchen</NavLink>
+              <NavLink to="/category/beauty" onClick={() => setOpenMenu(false)}>Beauty</NavLink>
+            </nav>
+          </div>
+        </div>
+      )}
+
+      {/* ================= USER SIDEBAR ================= */}
       {openUser && (
         <UserSidebar user={user} close={() => setOpenUser(false)} />
       )}

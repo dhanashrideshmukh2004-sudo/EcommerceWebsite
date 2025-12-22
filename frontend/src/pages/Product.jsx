@@ -17,8 +17,8 @@ export default function Product() {
   );
 
   return (
-    <div className="max-w-7xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-4 capitalize">
+    <div className="max-w-7xl mx-auto p-4 md:p-6">
+      <h1 className="text-2xl md:text-3xl font-bold mb-4 capitalize">
         {type} Products
       </h1>
 
@@ -30,25 +30,33 @@ export default function Product() {
         className="border p-2 w-full md:w-1/3 mb-6 rounded"
       />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {filtered.map(item => (
-          <div key={item.id} className="bg-white shadow-md rounded-xl p-4">
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+        {filtered.map((item) => (
+          <div
+            key={item.id}
+            className="bg-white shadow-md rounded-xl p-3 md:p-4 flex flex-col"
+          >
             <img
               src={item.image}
               alt={item.title}
-              className="h-48 w-full object-contain"
+              className="h-36 md:h-48 w-full object-contain"
             />
 
-            <h3 className="mt-2 text-sm font-semibold">{item.title}</h3>
+            <h3 className="mt-2 text-sm md:text-base font-semibold">
+              {item.title}
+            </h3>
 
-            <p className="font-bold text-green-600">₹ {item.price}</p>
+            <p className="font-bold text-green-600 mt-1">
+              ₹ {item.price}
+            </p>
 
-            <div className="flex justify-between items-center mt-3">
-              {/* ❤️ Like */}
+            {/* ✅ ACTIONS – SAME ROW (LIKE + ADD + BUY NOW) */}
+            <div className="mt-3 flex items-center justify-between gap-2">
+              {/* Like */}
               <button
                 onClick={() => toggleWishlist(item)}
                 className={`text-lg ${
-                  wishlist.find(p => p.id === item.id)
+                  wishlist.find((p) => p.id === item.id)
                     ? "text-red-500"
                     : "text-gray-400"
                 }`}
@@ -56,22 +64,28 @@ export default function Product() {
                 <FaHeart />
               </button>
 
-              {/* 🛒 Add */}
+              {/* Add */}
               <button
                 onClick={() => addToCart(item)}
-                className="flex items-center gap-2 text-sm border px-3 py-1 rounded-md"
+                className="flex items-center gap-1 text-xs border px-3 py-1 rounded-md"
               >
                 <FaShoppingCart /> Add
               </button>
 
               {/* Buy Now */}
-              <button className="text-xs bg-pink-600 text-white px-3 py-1 rounded-md">
+              <button className="bg-pink-600 text-white text-xs px-3 py-1 rounded-md">
                 Buy Now
               </button>
             </div>
           </div>
         ))}
       </div>
+
+      {filtered.length === 0 && (
+        <p className="text-center text-gray-500 mt-10">
+          No products found
+        </p>
+      )}
     </div>
   );
 }
