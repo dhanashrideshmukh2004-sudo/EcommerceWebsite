@@ -1,65 +1,87 @@
-import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    const users = JSON.parse(localStorage.getItem("users")) || [];
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-    const foundUser = users.find(
-      (u) => u.email === email && u.password === password
-    );
+    // ✅ Dummy user (API नसल्यास test साठी)
+    const user = {
+      name: "Dhanashri",
+      email: email,
+    };
 
-    if (!foundUser) {
-      alert("Invalid email or password ❌");
-      return;
-    }
+    // 🔐 IMPORTANT FIX
+    localStorage.setItem("currentUser", JSON.stringify(user));
 
-    // ✅ LOGIN SUCCESS
-    localStorage.setItem("currentUser", JSON.stringify(foundUser));
-    localStorage.setItem("isLogin", "true");
+    // Navbar update होण्यासाठी
+    window.location.reload();
 
-    navigate("/"); // HOME PAGE
+    // Home ला जा
+    navigate("/");
   };
 
   return (
-    <div className="flex justify-center mt-20">
-      <div className="bg-white p-8 rounded-xl shadow w-[360px]">
-        <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
+    <section className="bg-gray-50 min-h-screen flex items-center justify-center">
+      <div className="w-full max-w-md bg-white rounded-lg shadow p-6">
 
-        <input
-          type="email"
-          placeholder="Email"
-          className="w-full border px-3 py-2 mb-4 rounded"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+        <h1 className="text-2xl font-bold text-center mb-6">
+          Sign in to your account
+        </h1>
 
-        <input
-          type="password"
-          placeholder="Password"
-          className="w-full border px-3 py-2 mb-4 rounded"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+        <form onSubmit={handleSubmit} className="space-y-4">
 
-        <button
-          onClick={handleLogin}
-          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
-        >
-          Login
-        </button>
+          <div>
+            <label className="block text-sm font-medium mb-1">
+              Email
+            </label>
+            <input
+              type="email"
+              className="w-full border rounded-md px-3 py-2"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
 
-        <p className="text-sm mt-4 text-center">
-          New user?{" "}
-          <Link to="/register" className="text-blue-600">
-            Register
+          <div>
+            <label className="block text-sm font-medium mb-1">
+              Password
+            </label>
+            <input
+              type="password"
+              className="w-full border rounded-md px-3 py-2"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+
+          {error && (
+            <p className="text-red-500 text-sm">{error}</p>
+          )}
+
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700"
+          >
+            Sign In
+          </button>
+        </form>
+
+        <p className="text-sm text-center mt-4">
+          Don’t have an account?{" "}
+          <Link to="/register" className="text-blue-600 font-medium">
+            Sign Up
           </Link>
         </p>
+
       </div>
-    </div>
+    </section>
   );
 }

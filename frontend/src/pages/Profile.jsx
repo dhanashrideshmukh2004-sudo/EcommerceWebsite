@@ -11,12 +11,12 @@ export default function Profile() {
         <h2 className="text-2xl font-bold mb-4">
           Login to view your profile
         </h2>
-        <button
+        {/* <button
           onClick={() => navigate("/login")}
           className="bg-blue-600 text-white px-6 py-2 rounded-lg"
         >
           Go to Login
-        </button>
+        </button> */}
       </div>
     );
   }

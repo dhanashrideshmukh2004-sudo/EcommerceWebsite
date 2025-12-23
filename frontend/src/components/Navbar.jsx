@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
   FaShoppingCart,
   FaUserCircle,
@@ -13,11 +13,13 @@ import { useSearch } from "../context/SearchContext";
 export default function Navbar() {
   const { cart } = useCart();
   const { search, setSearch } = useSearch();
+  const navigate = useNavigate();
 
   const [openUser, setOpenUser] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
 
-  const user = { name: "Dhanashri" };
+  // 🔐 GET USER FROM STORAGE
+  const user = JSON.parse(localStorage.getItem("currentUser"));
 
   return (
     <>
@@ -62,6 +64,8 @@ export default function Navbar() {
 
           {/* Cart + User */}
           <div className="flex gap-4 items-center">
+
+            {/* CART */}
             <NavLink to="/cart" className="relative">
               <FaShoppingCart size={20} />
               {cart.length > 0 && (
@@ -71,9 +75,21 @@ export default function Navbar() {
               )}
             </NavLink>
 
-            <button onClick={() => setOpenUser(true)}>
-              <FaUserCircle size={22} />
-            </button>
+            {/* 🔐 AUTH SECTION */}
+            {!user ? (
+              // 👉 NOT LOGGED IN
+              <button
+                onClick={() => navigate("/login")}
+                className="px-4 py-1.5 border border-blue-600 text-blue-600 rounded-md hover:bg-blue-50 text-sm"
+              >
+                Login / Sign Up
+              </button>
+            ) : (
+              // 👉 LOGGED IN
+              <button onClick={() => setOpenUser(true)}>
+                <FaUserCircle size={22} />
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -102,7 +118,7 @@ export default function Navbar() {
       )}
 
       {/* ================= USER SIDEBAR ================= */}
-      {openUser && (
+      {openUser && user && (
         <UserSidebar user={user} close={() => setOpenUser(false)} />
       )}
     </>

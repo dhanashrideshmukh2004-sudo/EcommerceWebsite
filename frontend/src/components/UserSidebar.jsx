@@ -24,13 +24,13 @@ export default function UserSidebar({ user, close }) {
 
         {/* Menu */}
         <div className="flex flex-col py-4">
-          <NavLink
+          {/* <NavLink
             to="/orders"
             onClick={close}
             className="px-6 py-3 flex items-center gap-3 hover:bg-gray-100"
           >
             <FaBox /> My Orders
-          </NavLink>
+          </NavLink> */}
 
           <NavLink
             to="/profile"
@@ -40,18 +40,18 @@ export default function UserSidebar({ user, close }) {
             <FaUser /> My Profile
           </NavLink>
 
-          <NavLink
+          {/* <NavLink
             to="/wishlist"
             onClick={close}
             className="px-6 py-3 flex items-center gap-3 hover:bg-gray-100"
           >
             <FaHeart className="text-red-500" /> Wishlist
-          </NavLink>
+          </NavLink> */}
 
           <button
             className="px-6 py-3 flex items-center gap-3 text-red-600 hover:bg-gray-100"
           >
-            <FaSignOutAlt /> Logout
+            {/* <FaSignOutAlt /> Logout */}
           </button>
         </div>
       </div>
