@@ -8,29 +8,29 @@ export default function Login() {
   // State to store password input
   const [password, setPassword] = useState("");
 
-  // State to show error message if any
+  // State to handle error messages
   const [error, setError] = useState("");
 
-  // Hook to navigate between pages
+  // Hook for navigation
   const navigate = useNavigate();
 
-  // Handle login form submission
+  // Handle form submission
   const handleSubmit = (e) => {
-    e.preventDefault(); // Prevent page reload on form submit
+    e.preventDefault(); // Prevent page reload
 
-    // Dummy user object (used when API is not available)
+    // Dummy user object (used when backend/API is not connected)
     const user = {
       name: "Dhanashri",
       email: email,
     };
 
-    // Save logged-in user data in localStorage
+    // Save logged-in user in localStorage
     localStorage.setItem("currentUser", JSON.stringify(user));
 
     // Reload page so Navbar updates after login
     window.location.reload();
 
-    // Redirect user to home page
+    // Redirect to home page
     navigate("/");
   };
 
@@ -38,7 +38,7 @@ export default function Login() {
     <section className="bg-gray-50 min-h-screen flex items-center justify-center">
       <div className="w-full max-w-md bg-white rounded-lg shadow p-6">
 
-        {/* Login heading */}
+        {/* Page heading */}
         <h1 className="text-2xl font-bold text-center mb-6">
           Sign in to your account
         </h1>
@@ -46,7 +46,7 @@ export default function Login() {
         {/* Login form */}
         <form onSubmit={handleSubmit} className="space-y-4">
 
-          {/* Email input field */}
+          {/* Email field */}
           <div>
             <label className="block text-sm font-medium mb-1">
               Email
@@ -55,12 +55,12 @@ export default function Login() {
               type="email"
               className="w-full border rounded-md px-3 py-2"
               value={email}
-              onChange={(e) => setEmail(e.target.value)} // Update email state
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
 
-          {/* Password input field */}
+          {/* Password field */}
           <div>
             <label className="block text-sm font-medium mb-1">
               Password
@@ -69,12 +69,12 @@ export default function Login() {
               type="password"
               className="w-full border rounded-md px-3 py-2"
               value={password}
-              onChange={(e) => setPassword(e.target.value)} // Update password state
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
 
-          {/* Error message display */}
+          {/* Error message */}
           {error && (
             <p className="text-red-500 text-sm">{error}</p>
           )}
@@ -88,7 +88,7 @@ export default function Login() {
           </button>
         </form>
 
-        {/* Redirect to register page */}
+        {/* Redirect to Register page */}
         <p className="text-sm text-center mt-4">
           Don’t have an account?{" "}
           <Link to="/register" className="text-blue-600 font-medium">
