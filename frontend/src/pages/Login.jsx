@@ -10,7 +10,7 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // ✅ Dummy user (API नसल्यास test साठी)
+    
     const user = {
       name: "Dhanashri",
       email: email,
@@ -19,10 +19,9 @@ export default function Login() {
     // 🔐 IMPORTANT FIX
     localStorage.setItem("currentUser", JSON.stringify(user));
 
-    // Navbar update होण्यासाठी
+ ी
     window.location.reload();
-
-    // Home ला जा
+ा
     navigate("/");
   };
 
