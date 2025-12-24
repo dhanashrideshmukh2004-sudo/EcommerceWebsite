@@ -245,13 +245,13 @@ const products = [
     category:"men",
     image:"https://m.media-amazon.com/images/I/51LEISFC5aL._AC_UL480_FMwebp_QL65_.jpg"
   },
-  {
-    id:36,
-    title:"Lymio Track Pant for Men || Regular Fit || Track Pants || Lycra Full Elas...",
-    price:449,
-    category:"men",
-    image:"https://m.media-amazon.com/images/I/610IIi6wHuL._AC_UL480_FMwebp_QL65_.jpg"
-  },
+  // {
+  //   id:36,
+  //   title:"Lymio Track Pant for Men || Regular Fit || Track Pants || Lycra Full Elas...",
+  //   price:449,
+  //   category:"men",
+  //   image:"https://m.media-amazon.com/images/I/610IIi6wHuL._AC_UL480_FMwebp_QL65_.jpg"
+  // },
   {
     id:36,
     title:"XYXX Men's Checkmate Super Combed Cotton Regular Fit...",

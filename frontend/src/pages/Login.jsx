@@ -24,13 +24,14 @@ export default function Login() {
       email: email,
     };
 
-    // Save logged-in user in localStorage
+    // ✅ Save logged-in user in localStorage
     localStorage.setItem("currentUser", JSON.stringify(user));
+    localStorage.setItem("isLogin", "true"); // ⭐ FIX
 
-    // Reload page so Navbar updates after login
-    window.location.reload();
+    // ❌ REMOVE page reload (this caused auto logout issue)
+    // window.location.reload();
 
-    // Redirect to home page
+    // ✅ Redirect to home page
     navigate("/");
   };
 
